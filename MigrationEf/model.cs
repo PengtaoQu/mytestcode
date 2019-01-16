@@ -13,7 +13,6 @@ namespace MigrationEf
 
         public String Name { get; set; }
 
-     
     }
 
 
