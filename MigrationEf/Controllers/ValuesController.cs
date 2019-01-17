@@ -15,7 +15,7 @@ namespace MigrationEf.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
 
-
+            get.Get();
             
             return new string[] { "value1", "value2" };
         }
