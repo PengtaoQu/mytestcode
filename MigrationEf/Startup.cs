@@ -34,6 +34,9 @@ namespace MigrationEf
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+
+
              
             }
             else

@@ -9,9 +9,11 @@ namespace MigrationEf
     public class course
     {
 
-         public int ID { get; set; }
+        public int ID { get; set; }
 
         public String Name { get; set; }
+
+        public ICollection<student> student { get; set; }
 
     }
 
@@ -22,6 +24,8 @@ namespace MigrationEf
         public int ID { get; set; }
 
         public String Name { get; set; }
+
+        public course course { get; set; }
 
     }
 
@@ -38,18 +42,43 @@ namespace MigrationEf
             optionsBuilder.UseSqlServer(@"Server=.;Database=Test2;Trusted_Connection=True;");
         }
     }
-    public class db1 : DbContext
+
+
+    public class get
     {
 
-        public DbSet<course> courses { get; set; }
 
-        public DbSet<student> students { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public    static  void Get()
         {
-            //注入Sql链接字符串
-            optionsBuilder.UseSqlServer(@"Server=.;Database=Test2;Trusted_Connection=True;");
+
+
+            //var stu = new List<student> { new student { Name="张三"},new student {  Name="李四"},new student {
+            // Name="王五"} };
+            //var cour = new List<course> { new course { Name = "语文", student = stu }, new course { Name = "英语" } };
+
+            var dbc = new db();
+
+            //dbc.courses.AddRange(cour);
+
+            //var shuw = new course { ID = 10 };
+
+            ////var stu = dbc.students.Where(x => x.Name == "张三").FirstOrDefault();
+            ////dbc.students.Remove(stu);
+            //dbc.courses.Remove(shuw);
+
+
+            var stu = new student { ID = 5};
+            dbc.students.Remove(stu);
+
+            dbc.SaveChanges();
+
+
+
+
         }
+
+    
+    
     }
 
 }
