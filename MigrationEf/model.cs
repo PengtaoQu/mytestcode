@@ -27,6 +27,12 @@ namespace MigrationEf
        
         public  virtual ICollection<student> student { get; set; }
 
+         public string cname { get; set; }
+
+
+
+        
+
     }
 
 
