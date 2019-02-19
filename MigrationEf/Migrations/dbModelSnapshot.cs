@@ -19,6 +19,19 @@ namespace MigrationEf.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("MigrationEf.activity", b =>
+                {
+                    b.Property<int>("activityID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("activityID");
+
+                    b.ToTable("activities");
+                });
+
             modelBuilder.Entity("MigrationEf.course", b =>
                 {
                     b.Property<int>("ID")
@@ -49,11 +62,56 @@ namespace MigrationEf.Migrations
                     b.ToTable("students");
                 });
 
+            modelBuilder.Entity("MigrationEf.trip", b =>
+                {
+                    b.Property<int>("tripID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("nAME");
+
+                    b.HasKey("tripID");
+
+                    b.ToTable("trips");
+                });
+
+            modelBuilder.Entity("MigrationEf.tripacti", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("activityID");
+
+                    b.Property<int>("tripID");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("activityID");
+
+                    b.HasIndex("tripID");
+
+                    b.ToTable("tripacti");
+                });
+
             modelBuilder.Entity("MigrationEf.student", b =>
                 {
                     b.HasOne("MigrationEf.course", "course")
                         .WithMany("student")
                         .HasForeignKey("courseID");
+                });
+
+            modelBuilder.Entity("MigrationEf.tripacti", b =>
+                {
+                    b.HasOne("MigrationEf.activity")
+                        .WithMany("tripacti")
+                        .HasForeignKey("activityID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MigrationEf.trip")
+                        .WithMany("tripacti")
+                        .HasForeignKey("tripID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
